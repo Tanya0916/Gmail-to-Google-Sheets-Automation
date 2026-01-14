@@ -1,18 +1,22 @@
-from src.gmail_service import get_gmail_service, fetch_unread_emails
-from src.sheets_service import get_sheets_service, append_row
-from src.email_parser import parse_email
+
+from gmail_service import get_unread_emails
+from sheets_service import append_to_sheet
+from email_parser import parse_email
 
 def main():
-    gmail = get_gmail_service()
-    sheets = get_sheets_service()
+    print("Starting Gmail → Sheets automation...")
 
-    messages = fetch_unread_emails(gmail)
+   
+    emails = get_unread_emails()
+    print(f"Fetched {len(emails)} unread emails.")
 
-    for m in messages:
-        row = parse_email(gmail, m['id'])
-        append_row(sheets, row)
-        # Mark as read
-        gmail.users().messages().modify(userId='me', id=m['id'], body={'removeLabelIds': ['UNREAD']}).execute()
+   
+    for email in emails:
+        parsed = parse_email(email)
+        append_to_sheet([parsed['sender'], parsed['subject'], parsed['date'], parsed['body']])
+        print(f"Appended email from {parsed['sender']} to Google Sheet.")
+
+    print("✅ Process complete!")
 
 if __name__ == "__main__":
     main()
