@@ -3,12 +3,13 @@ from sheets_service import append_to_sheet
 from email_parser import parse_email
 
 def main():
-    print(" Starting Gmail → Sheets automation...")
+    print("Starting Gmail → Sheets automation...")
 
+    
     emails = get_unread_emails()
     print(f"Fetched {len(emails)} unread emails.")
 
-  
+   
     for email in emails:
         parsed = parse_email(email)
         append_to_sheet([parsed['sender'], parsed['subject'], parsed['date'], parsed['body']])
@@ -18,7 +19,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 
 
 
