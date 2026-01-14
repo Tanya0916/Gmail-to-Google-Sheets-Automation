@@ -5,7 +5,7 @@ from email_parser import parse_email
 def main():
     print("Starting Gmail → Sheets automation...")
 
-    
+   
     emails = get_unread_emails()
     print(f"Fetched {len(emails)} unread emails.")
 
@@ -19,6 +19,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
