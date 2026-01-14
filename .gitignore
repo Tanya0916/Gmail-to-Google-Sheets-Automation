@@ -1,7 +1,7 @@
 credentials/
 *.pickle
 token.json
-credentials/
-credentials.json
+
+
 
 
